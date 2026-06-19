@@ -6,9 +6,9 @@ import {
   Clock, 
   AlertTriangle, 
   ChevronRight,
-  Cpu, 
+  ShieldCheck,
   ArrowUpRight,
-  Sparkles
+  Radio
 } from "lucide-react";
 import { 
   ResponsiveContainer, 
@@ -66,35 +66,47 @@ export default function Dashboard({ stats, issues, onSelectIssue, onNavigateToTa
 
   return (
     <div className="space-y-4 animate-slide-in">
-      {/* 🔮 High Density Roadmap Banner */}
+      {/* QC Operations Status Banner */}
       <div className="relative overflow-hidden bg-slate-900 text-[#F8FAFC] rounded border border-slate-800 p-4 shadow-sm">
-        <div className="absolute top-0 right-0 p-4 opacity-[0.03] pointer-events-none transform translate-x-8 -translate-y-8">
-          <Cpu size={180} className="text-[#38BDF8]" />
+        <div className="absolute top-0 right-0 p-4 opacity-[0.04] pointer-events-none transform translate-x-8 -translate-y-8">
+          <ShieldCheck size={180} className="text-emerald-400" />
         </div>
         <div className="relative z-10 space-y-2">
-          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/20">
-            <Sparkles size={11} />
-            실전 캡스톤 가이드
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/20">
+              <Radio size={11} className="animate-pulse" />
+              QC Lab Operations — Live
+            </div>
+            <span className="text-[10px] font-mono text-slate-500">
+              {new Date().toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", weekday: "short" })}
+            </span>
           </div>
           <h2 className="text-lg md:text-xl font-bold tracking-tight text-white leading-snug">
-            "AI Studio Build는 빠른 시안이고, Cursor + Supabase + Vercel은 실제 서비스로 가는 최소 세트다."
+            실험실 정도관리(QC) 통합 모니터링 · Westgard 규칙 기반 이상 탐지 · CAPA 워크플로
           </h2>
           <p className="text-slate-400 max-w-4xl text-xs leading-normal">
-            본 솔루션은 의료·바이오/QC 현장의 오차를 실시간 감지하여 <strong>Westgard Rule과 Gemini AI CAPA 추천</strong>을 통합한 
-            정도관리 감사 시안입니다. 상용 이식 시 <strong>Vercel 배포판과 Supabase PostgreSQL DB</strong> 결합 모델을 통해 빠르고 완벽한 상용 인프라를 구축할 수 있습니다.
+            ELISA, RT-PCR, HPLC, NGS 등 <strong className="text-slate-300">4개 검사 항목</strong>의 일일 대조군(Run Control) 결과를 실시간 집계합니다.
+            ±2SD/±3SD 위반, 10_X 체계적 편차 등 <strong className="text-slate-300">Westgard 다중 규칙</strong>에 따라 자동 플래그되며,
+            이상 건은 CAPA 조사·Gemini AI 기술 자문·감사 추적(Audit Trail)까지 한 화면에서 처리합니다.
           </p>
           <div className="pt-1 flex flex-wrap gap-3 text-[10px] font-mono text-slate-400">
             <span className="flex items-center gap-1 bg-slate-800/80 px-2 py-1 rounded border border-slate-700/60">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-              시안: AI Studio + React
+              Westgard Rules: Active
             </span>
             <span className="flex items-center gap-1 bg-slate-800/80 px-2 py-1 rounded border border-slate-700/60">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-              인프라: Supabase + Vercel
+              Run Control DB: Synced
+            </span>
+            <span className="flex items-center gap-1 bg-slate-800/80 px-2 py-1 rounded border border-slate-700/60">
+              <span className={`h-1.5 w-1.5 rounded-full ${stats.criticalIssues > 0 ? "bg-red-400 animate-pulse" : "bg-emerald-400"}`}></span>
+              {stats.criticalIssues > 0
+                ? `긴급 알람 ${stats.criticalIssues}건 — 즉시 CAPA 검토 필요`
+                : "긴급 알람 없음 — All Clear"}
             </span>
             <span className="flex items-center gap-1 bg-slate-800/80 px-2 py-1 rounded border border-slate-700/60">
               <span className="h-1.5 w-1.5 rounded-full bg-purple-400"></span>
-              AI Agent: Cursor MCP Integration
+              CLIA/CAP Audit Trail: Enabled
             </span>
           </div>
         </div>
