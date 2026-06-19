@@ -1,0 +1,10 @@
+.env
+.env.local
+.env*.local
+node_modules/
+dist/
+.vercel/
+__pycache__/
+.venv/
+.streamlit/secrets.toml
+*.zip

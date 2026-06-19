@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Custom glowing effects for lab alerts */
+.alert-glow-red {
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+}
+
+.alert-glow-amber {
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+}
+
+.alert-glow-green {
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+/* Laboratory crisp accents for High Density theme */
+.lab-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth custom slide transition animations */
+@keyframes slideIn {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

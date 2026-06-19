@@ -1,0 +1,6 @@
+{
+  "name": "실험 QC 이슈 추적기",
+  "description": "실험 및 QC 이슈를 감지, 등록, 조회, 추적하고 Westgard 규칙과 Gemini AI 자문 서비스를 제공하는 우수제조설계(GMP/CLIA) 프로토타입 웹앱",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
