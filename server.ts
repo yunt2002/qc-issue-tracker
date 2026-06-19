@@ -13,7 +13,10 @@ import {
   setAiAnalysis,
   updateIssue,
 } from "./lib/db";
-import { GoogleGenAI } from "@google/genai";
+import {
+  analyzeIssueWithGemini,
+  historyMessageForResult,
+} from "./lib/gemini-analysis";
 import { TestCategory } from "./src/types";
 
 dotenv.config({ path: ".env.local" });
@@ -155,26 +158,13 @@ app.post("/api/issues/:id/analyze", async (req, res) => {
       return res.status(404).json({ error: "QC Issue ID not found." });
     }
 
-    const key = process.env.GEMINI_API_KEY;
-    if (!key) {
-      const mockAnalysis = `### 🧪 Automated Clinical Troubleshooting (Simulated - API Key Missing)\n\nBased on **${issue.testName}** (Z-Score: **${issue.zScore}**).`;
-      await setAiAnalysis(req.params.id, mockAnalysis);
-      return res.json({ aiAnalysis: mockAnalysis });
-    }
-
-    const ai = new GoogleGenAI({ apiKey: key });
-    const result = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: `Analyze QC issue ${issue.id} for ${issue.testName}. Measured: ${issue.measuredValue}, expected: ${issue.expectedValue}, z-score: ${issue.zScore}.`,
-      config: {
-        systemInstruction:
-          "You are a Chief Medical Quality Control Officer and Senior Laboratory CAPA Auditor.",
-      },
-    });
-
-    const aiText = result.text || "Failed to generate AI analysis report.";
-    await setAiAnalysis(req.params.id, aiText);
-    res.json({ aiAnalysis: aiText });
+    const result = await analyzeIssueWithGemini(issue);
+    await setAiAnalysis(
+      req.params.id,
+      result.aiAnalysis,
+      historyMessageForResult(result)
+    );
+    res.json(result);
   } catch (error) {
     console.error("Gemini API Error: ", error);
     res.status(500).json({ error: "Failed to securely dial Gemini API engine." });

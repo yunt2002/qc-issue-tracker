@@ -308,7 +308,8 @@ export async function addComment(
 
 export async function setAiAnalysis(
   id: string,
-  aiAnalysis: string
+  aiAnalysis: string,
+  historyText?: string
 ): Promise<QCIssue | null> {
   const supabase = getSupabase();
   const { data: existing, error: fetchError } = await supabase
@@ -325,7 +326,9 @@ export async function setAiAnalysis(
       id: `h-gemini-${Date.now()}`,
       status: issue.status,
       changedBy: "Gemini Copilot",
-      text: "Completed deep quality control calibration diagnostics and CAPA protocol recommendation.",
+      text:
+        historyText ||
+        "Completed deep quality control calibration diagnostics and CAPA protocol recommendation.",
       createdAt: new Date().toISOString(),
     },
     ...issue.history,

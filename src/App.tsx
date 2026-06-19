@@ -164,10 +164,21 @@ export default function App() {
         headers: { "Content-Type": "application/json" }
       });
       if (response.ok) {
+        const result = await response.json();
+        if (result.fallback) {
+          const message =
+            result.source === "previous"
+              ? "Gemini 할당량/토큰이 소진되어 이전 AI 분석 결과를 유지합니다."
+              : "Gemini API를 사용할 수 없어 오프라인 CAPA 체크리스트(이전 버전)로 전환했습니다.";
+          alert(message);
+        }
         await fetchAllData();
+      } else {
+        alert("AI 분석 요청에 실패했습니다.");
       }
     } catch (error) {
       console.error("Gemini context pipeline broken: ", error);
+      alert("AI 분석 중 오류가 발생했습니다.");
     } finally {
       setIsAiLoading(false);
     }
