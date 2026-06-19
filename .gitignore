@@ -8,5 +8,6 @@ __pycache__/
 .venv/
 .streamlit/secrets.toml
 *.zip
+testdata-import/
 
 .vercel

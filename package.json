@@ -8,6 +8,8 @@
     "build": "vite build",
     "start": "node dist/server.cjs",
     "lint": "tsc --noEmit",
+    "seed": "tsx scripts/seed-database.ts",
+    "seed:sql": "tsx scripts/generate-seed-sql.ts",
     "vercel-build": "vite build"
   },
   "dependencies": {
