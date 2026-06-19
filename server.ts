@@ -100,7 +100,7 @@ app.patch("/api/issues/:id", async (req, res) => {
   }
 });
 
-app.post("/api/issues/:id/comments", async (req, res) => {
+app.post("/api/issue-comments/:id", async (req, res) => {
   try {
     const { author, text } = req.body;
     if (!author || !text) {
@@ -151,7 +151,7 @@ app.post("/api/runs", async (req, res) => {
   }
 });
 
-app.post("/api/issues/:id/analyze", async (req, res) => {
+app.post("/api/issue-analyze/:id", async (req, res) => {
   try {
     const issue = await getIssueById(req.params.id);
     if (!issue) {

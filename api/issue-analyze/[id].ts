@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getIssueById, setAiAnalysis } from "../../../lib/db.js";
+import { getIssueById, setAiAnalysis } from "../../lib/db.js";
 import {
   analyzeIssueWithGemini,
   historyMessageForResult,
-} from "../../../lib/gemini-analysis.js";
+} from "../../lib/gemini-analysis.js";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { id } = req.query;
@@ -23,11 +23,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const result = await analyzeIssueWithGemini(issue);
-
-    if (result.source === "previous") {
-      await setAiAnalysis(id, result.aiAnalysis, historyMessageForResult(result));
-      return res.status(200).json(result);
-    }
 
     await setAiAnalysis(
       id,

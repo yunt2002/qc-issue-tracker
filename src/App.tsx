@@ -117,7 +117,7 @@ export default function App() {
   // Handler: Add comment
   const handleAddComment = async (issueId: string, author: string, text: string) => {
     try {
-      const response = await fetch(`/api/issues/${issueId}/comments`, {
+      const response = await fetch(`/api/issue-comments/${issueId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author, text })
@@ -159,7 +159,7 @@ export default function App() {
   const handleTriggerAI = async (issueId: string) => {
     setIsAiLoading(true);
     try {
-      const response = await fetch(`/api/issues/${issueId}/analyze`, {
+      const response = await fetch(`/api/issue-analyze/${issueId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" }
       });
