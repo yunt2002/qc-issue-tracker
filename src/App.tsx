@@ -184,6 +184,11 @@ export default function App() {
     }
   };
 
+  const goHome = () => {
+    setActiveTab("dashboard");
+    setSelectedIssueId(null);
+  };
+
   const selectedIssue = issues.find(i => i.id === selectedIssueId);
 
   const formatTime = (date: Date) => {
@@ -199,7 +204,12 @@ export default function App() {
       
       {/* 🔮 Left Sidebar - High Density Dark Mode */}
       <aside className="w-full md:w-64 bg-[#0F172A] text-slate-300 flex flex-col shrink-0 border-b md:border-b-0 md:border-r border-slate-800">
-        <div className="p-5 flex items-center gap-3 border-b border-slate-800 shrink-0">
+        <button
+          type="button"
+          onClick={goHome}
+          className="p-5 flex items-center gap-3 border-b border-slate-800 shrink-0 w-full text-left transition-colors hover:bg-[#1E293B] cursor-pointer"
+          aria-label="홈 — QC 정밀 대시보드로 이동"
+        >
           <div className="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center font-bold text-white text-xs tracking-tighter">
             QC
           </div>
@@ -207,7 +217,7 @@ export default function App() {
             <span className="font-bold text-base text-white tracking-tight block">BioTrack v1.0</span>
             <span className="text-[9px] text-slate-500 uppercase tracking-widest block font-mono">Precision System</span>
           </div>
-        </div>
+        </button>
 
         <nav className="flex-1 py-4 space-y-1">
           <div className="px-5 py-2 text-[10px] uppercase tracking-widest text-[#64748B] font-bold mb-1">
@@ -216,10 +226,7 @@ export default function App() {
           
           {/* Dashboard Button */}
           <button
-            onClick={() => {
-              setActiveTab("dashboard");
-              setSelectedIssueId(null);
-            }}
+            onClick={goHome}
             className={`w-full flex items-center px-5 py-2.5 text-xs font-semibold tracking-tight transition-colors text-left border-r-4 ${
               activeTab === "dashboard" && !selectedIssueId
                 ? "bg-[#1E293B] text-white border-emerald-500"
