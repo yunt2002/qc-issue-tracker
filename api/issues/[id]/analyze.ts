@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { GoogleGenAI } from "@google/genai";
-import { getIssueById, setAiAnalysis } from "../../../lib/db";
+import { getIssueById, setAiAnalysis } from "../../../lib/db.js";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { id } = req.query;

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { createRun, listRuns } from "../../lib/db";
-import { TestCategory } from "../../src/types";
+import { createRun, listRuns } from "../../lib/db.js";
+import { TestCategory } from "../../lib/types.js";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {

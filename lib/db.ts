@@ -5,10 +5,10 @@ import {
   HistoryEvent,
   QCIssue,
   TestCategory,
-} from "../src/types";
-import { getSupabase } from "./supabase";
-import { TEST_CONFIGS } from "./test-configs";
-import { checkWestgardRules } from "./westgard";
+} from "./types.js";
+import { getSupabase } from "./supabase.js";
+import { TEST_CONFIGS } from "./test-configs.js";
+import { checkWestgardRules } from "./westgard.js";
 
 type IssueRow = {
   id: string;
